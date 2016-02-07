@@ -12,13 +12,11 @@ int main()
     int fserv; 
     if((fserv=open(serv,1))<0)
          return printf("Error connecting with server\n"),-1;
-    char fname[200];
-    printf("My pid is %d\n",getpid());
-    printf("Enter string to write: ");
-    scanf("%s",fname);
+    char fname[30]="Hello from pid ";
     char str[1155];
     char client[20]="/tmp/fifo_";
     sprintf(client,"%s%d",client,getpid());
+    sprintf(fname,"%s%d\n",fname,getpid());
     if(mkfifo(client,0777)<0)
     {
          printf("Error, server cant process request\n");
@@ -26,7 +24,7 @@ int main()
          return -2;
     }
     int a=write(fserv,client,20);
-    int d=write(fserv,fname,strlen(client)+1);
+    int d=write(fserv,fname,30);
     int fclient;
     if((fclient=open(client,0))<0)
     {
@@ -35,7 +33,7 @@ int main()
         return -3;
     }
     read(fclient,str,990);
-    printf("Server response  :\n%s\n",str);
+    printf("Server response :\n%s\n",str);
     
     unlink(client);
 
