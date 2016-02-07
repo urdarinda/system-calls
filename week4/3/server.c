@@ -1,0 +1,34 @@
+#include<stdio.h>
+#include<sys/types.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<stdlib.h>
+#define serv "/tmp/fifo_serv"
+#include<sys/stat.h>
+#include<string.h>
+int main()
+{
+    int fserv;
+
+    unlink(serv);
+    mkfifo(serv,0777);
+    if( ( fserv=open(serv,0) )<0)
+    {
+        printf("Server Error\n");
+        unlink(serv);
+        return -1;
+    }
+
+    char client[20];
+    read(fserv,client,20);
+    char content[2000];
+    read(fserv,content,2000);
+    int fclient;
+    if( (fclient=open(client,1)) <0)
+        printf("Error connecting to client");
+    else
+    {
+        write(fclient,content,strlen(content)+1);
+    }
+    unlink(serv);
+}
