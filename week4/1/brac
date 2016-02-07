@@ -11,4 +11,4 @@ if( (file=open(path,1)) <0)
 
 A big slow clap for me :P
 
-I also do not know why the program is giving 4 stray characters
+I also do not know why the program is giving stray characters : 

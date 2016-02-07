@@ -1,0 +1,4 @@
+As you have guessed, this program is vulnerable to directory traversal attacks.
+You can go to any directory using ../ and print the file.
+Need to patch this asap :O
+And always stray characters : 
